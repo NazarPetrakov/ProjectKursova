@@ -118,7 +118,7 @@ namespace ProjectKursova
             else
                 MessageBox.Show("Start the task first");
 
-            foreach (var task in ListTask.Items.Values)
+            foreach (var task in ListTask.Items.Values.Where(it => it.ProjectList == (ProjectList)lbLists.SelectedItem))
             {
                 if (task.TaskStatus != "+")
                 {
@@ -127,9 +127,8 @@ namespace ProjectKursova
                 
             }
             if (competed)
-                //Debug.WriteLine(lbLists);
-                ProjectList.Items.Values.Where(it => it == lbLists.SelectedItem).First().TaskStatus = "+";
-
+                ((ProjectList) lbLists.SelectedItem).TaskStatus = "+";
+            RefreshList();
             RefreshTask();
         }
     }
