@@ -47,8 +47,10 @@ namespace ProjectKursova
         }
         private void RefreshList()
         {
+            var a = lbLists.SelectedIndex;
             lbLists.DataSource = null;
             lbLists.DataSource = ProjectList.Items.Values.ToList();
+            lbLists.SelectedIndex = a;
         }
         
 
@@ -82,8 +84,11 @@ namespace ProjectKursova
         }
         private void RefreshTask()
         {
+            var a = lbTasks.SelectedIndex;
             lbTasks.DataSource = null;
             lbTasks.DataSource = ListTask.Items.Values.Where(lb => lb.ProjectList == lbLists.SelectedItem).ToList();
+            lbTasks.SelectedIndex = a;
+
         }
         private void lbTasks_SelectedIndexChanged(object sender, EventArgs e)
         {
