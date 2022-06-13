@@ -6,19 +6,22 @@ using System.Threading.Tasks;
 
 namespace Projects.Data
 {
-    public class ListTask : Base
+    public class ListTask : Base<ListTask>
     {
         public string Name { get; set; }
+
+        public string TaskStatus = "-";
+        
 
         private Guid _projectListId;
         public ProjectList ProjectList
         {
-            get { return (ProjectList)Items[_projectListId]; }
+            get { return ProjectList.Items[_projectListId]; }
             set { _projectListId = value.Id; }
         }
         public override string ToString()
         {
-            return Name;
+            return Name + " (" + TaskStatus + ")";
         }
     }
 }

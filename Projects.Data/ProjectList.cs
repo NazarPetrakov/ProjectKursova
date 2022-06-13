@@ -6,29 +6,29 @@ using System.Threading.Tasks;
 
 namespace Projects.Data
 {
-    public class ProjectList : Base
+    public class ProjectList : Base<ProjectList>
     {
         public string Name { get; set; }
 
-        public List<ListTask> Tasks
+        public string TaskStatus = "-";
+
+        private Guid _performerId;
+
+        public Performer Performer
+        {
+            get { return Performer.Items[_performerId]; }
+            set { _performerId = value.Id; }
+        }
+        public List<ListTask> ListTasks
         {
             get
-            {
-                List<ListTask> res = new List<ListTask>();
-                foreach (var item in Base.Items.Values)
-                {
-                    if (item is ListTask && ((ListTask)item).ProjectList == this)
-
-                        res.Add((ListTask)item);
-
-                }
-                return res;
-
+            { 
+                return ListTask.Items.Values.Where(lt => lt.ProjectList == this).ToList();  
             }
         }
         public override string ToString()
         {
-            return Name;
+            return Name + " (" + TaskStatus + ")";
         }
     }
 }

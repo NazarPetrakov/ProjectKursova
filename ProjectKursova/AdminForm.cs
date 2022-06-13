@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Projects.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,20 +8,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Projects.Data;
 
 namespace ProjectKursova
 {
-    public partial class FormLists : Form
+    public partial class AdminForm : Form
     {
-        public FormLists()
+        public AdminForm()
         {
             InitializeComponent();
         }
-        
-        private void FormLists_Load(object sender, EventArgs e)
+
+        private void AdminForm_Load(object sender, EventArgs e)
         {
-            lbLists.DataSource = ProjectList.Items.Values.ToList();
+            lbUser.DataSource = Performer.Items.Values.ToList();
         }
     }
 }

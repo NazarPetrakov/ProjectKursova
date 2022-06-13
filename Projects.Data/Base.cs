@@ -6,15 +6,19 @@ using System.Threading.Tasks;
 
 namespace Projects.Data
 {
-    public  class Base
+    public  class Base<T> where T:Base<T>
     {
-        public static Dictionary<Guid, Base> Items = new Dictionary<Guid, Base>();
+        public static Dictionary<Guid, T> Items = new Dictionary<Guid, T>();
         public Guid Id { get; private set; }
 
         public Base()
         {
             Id = Guid.NewGuid();
-            Items.Add(Id, this);
+            Items.Add(Id, (T)this);
         }
+    }
+    public static class DataBank
+    {
+        public static string Text { get; set; }
     }
 }
