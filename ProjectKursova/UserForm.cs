@@ -21,8 +21,9 @@ namespace ProjectKursova
 
         private void UserForm_Load(object sender, EventArgs e)
         {
-            lblYourLogin.Text = DataBank.Text;
-            lbLists.DataSource = ProjectList.Items.Values.Where(lb => lb.Performer.Login == DataBank.Text).ToList();
+            Debug.WriteLine(DataBank.Performer.Login);
+            lblYourLogin.Text = DataBank.Performer.Login;
+            lbLists.DataSource = ProjectList.Items.Values.Where(lb => lb.Performer == DataBank.Performer).ToList();
 
 
         }
@@ -36,10 +37,14 @@ namespace ProjectKursova
 
         private void btnAddProjectcs_Click(object sender, EventArgs e)
         {
-            if (ProjectList.Items.Count < 3)               
-            new ProjectList() { Name = tbProjects.Text };
-            else
-                MessageBox.Show("You have already had 3 projects");
+            if (tbProjects.Text != "")
+            {
+                if (ProjectList.Items.Values.Where(lb => lb.Performer == DataBank.Performer).ToList().Count < 3)
+                    new ProjectList() { Name = tbProjects.Text, Performer = DataBank.Performer };
+                else
+                    MessageBox.Show("You have already had 3 projects");
+            }
+            
             RefreshList();
         }
 
@@ -51,10 +56,10 @@ namespace ProjectKursova
         }
         private void RefreshList()
         {
-            var a = lbLists.SelectedIndex;
+            
             lbLists.DataSource = null;
-            lbLists.DataSource = ProjectList.Items.Values.ToList();
-            lbLists.SelectedIndex = a;
+            lbLists.DataSource = ProjectList.Items.Values.Where(lb => lb.Performer == DataBank.Performer).ToList();
+            
         }
        
 
@@ -73,28 +78,33 @@ namespace ProjectKursova
             }
             foreach (var g in guidList)
             {
-                ListTask.Items.Remove(g);
+                
+                    ListTask.Items.Remove(g);
 
             }
-            ProjectList.Items.Remove(((ProjectList)lbLists.SelectedItem).Id);
+            if (lbLists.SelectedItem != null)
+                ProjectList.Items.Remove(((ProjectList)lbLists.SelectedItem).Id);
             RefreshList();
 
         }
 
         private void btnAddTask_Click(object sender, EventArgs e)
         {
-            if (ListTask.Items.Values.Where(lb => lb.ProjectList == (ProjectList)lbLists.SelectedItem).ToList().Count < 6)
-                new ListTask() { Name = tbTasks.Text, ProjectList = (ProjectList)lbLists.SelectedItem };
-            else
-                MessageBox.Show("You have already had 6 tasks");
+            if (tbTasks.Text != "")
+            {
+                if (ListTask.Items.Values.Where(lb => lb.ProjectList == (ProjectList)lbLists.SelectedItem).ToList().Count < 6)
+                    new ListTask() { Name = tbTasks.Text, ProjectList = (ProjectList)lbLists.SelectedItem };
+                else
+                    MessageBox.Show("You have already had 6 tasks");
+            }
             RefreshTask();
         }
         private void RefreshTask()
         {
-            var a = lbTasks.SelectedIndex;
+            
             lbTasks.DataSource = null;
             lbTasks.DataSource = ListTask.Items.Values.Where(lb => lb.ProjectList == lbLists.SelectedItem).ToList();
-            lbTasks.SelectedIndex = a;
+            
         }
         private void lbTasks_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -111,21 +121,25 @@ namespace ProjectKursova
 
         private void btnRemoveTask_Click(object sender, EventArgs e)
         {
-            ListTask.Items.Remove(((ListTask)lbTasks.SelectedItem).Id);
+            if (lbTasks.SelectedItem != null)
+                ListTask.Items.Remove(((ListTask)lbTasks.SelectedItem).Id);
             RefreshTask();
         }
 
         private void btnStartTask_Click(object sender, EventArgs e)
         {
-            if (((ListTask)lbTasks.SelectedItem).TaskStatus == "-")
+            if (tbTasks.Text != "")
             {
-                ((ProjectList)lbLists.SelectedItem).TaskStatus = "...";
-                ((ListTask)lbTasks.SelectedItem).TaskStatus = "...";
+                if (((ListTask)lbTasks.SelectedItem).TaskStatus == "-")
+                {
+                    ((ProjectList)lbLists.SelectedItem).TaskStatus = "...";
+                    ((ListTask)lbTasks.SelectedItem).TaskStatus = "...";
+                }
+                else if (((ListTask)lbTasks.SelectedItem).TaskStatus == "+")
+                    MessageBox.Show("The task is already done");
+                else
+                    MessageBox.Show("The task is already started");
             }
-            else if (((ListTask)lbTasks.SelectedItem).TaskStatus == "+")
-                MessageBox.Show("The task is already done");
-            else
-                MessageBox.Show("The task is already started");
             RefreshList();
             RefreshTask();
         }
@@ -133,25 +147,28 @@ namespace ProjectKursova
         private void btnCompiteTask_Click(object sender, EventArgs e)
         {
             var competed = true;
-            if (((ListTask)lbTasks.SelectedItem).TaskStatus == "...")
+            if (tbTasks.Text != "")
             {
-                ((ListTask)lbTasks.SelectedItem).TaskStatus = "+";
-                RefreshTask();
-            }
-            else if (((ListTask)lbTasks.SelectedItem).TaskStatus == "+")
-                MessageBox.Show("The task is already done");
-            else
-                MessageBox.Show("Start the task first");
-            foreach (var task in ListTask.Items.Values.Where(it => it.ProjectList == (ProjectList)lbLists.SelectedItem))
-            {
-                if (task.TaskStatus != "+")
+                if (((ListTask)lbTasks.SelectedItem).TaskStatus == "...")
                 {
-                    competed = false;
+                    ((ListTask)lbTasks.SelectedItem).TaskStatus = "+";
+                    RefreshTask();
                 }
+                else if (((ListTask)lbTasks.SelectedItem).TaskStatus == "+")
+                    MessageBox.Show("The task is already done");
+                else
+                    MessageBox.Show("Start the task first");
+                foreach (var task in ListTask.Items.Values.Where(it => it.ProjectList == (ProjectList)lbLists.SelectedItem))
+                {
+                    if (task.TaskStatus != "+")
+                    {
+                        competed = false;
+                    }
 
+                }
+                if (competed)
+                    ((ProjectList)lbLists.SelectedItem).TaskStatus = "+";
             }
-            if (competed)
-                ((ProjectList)lbLists.SelectedItem).TaskStatus = "+";
             RefreshList();
             
             

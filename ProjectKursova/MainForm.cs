@@ -42,11 +42,19 @@ namespace ProjectKursova
 
         private void btnUser_Click(object sender, EventArgs e)
         {
-            DataBank.Text = tbLogin.Text;
+          
             if (tbLogin.Text != "")
             {
+                if (Performer.Items.Values.Where(pf => pf.Login == tbLogin.Text).ToList().Count() == 0)
+                {
+                    Performer user = new Performer() { Login = tbLogin.Text };
+                    DataBank.Performer = user;
+
+                }
+                else
+                    DataBank.Performer = Performer.Items.Values.Single(pf => pf.Login == tbLogin.Text);
                 new UserForm().ShowDialog();
-                new Performer() { Login = tbLogin.Text };
+
             }
             else
                 MessageBox.Show("You did not enter a Login");

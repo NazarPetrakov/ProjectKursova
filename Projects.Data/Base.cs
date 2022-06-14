@@ -19,6 +19,6 @@ namespace Projects.Data
     }
     public static class DataBank
     {
-        public static string Text { get; set; }
+        public static Performer Performer { get; set; }
     }
 }
