@@ -22,7 +22,8 @@ namespace ProjectKursova
         private void UserForm_Load(object sender, EventArgs e)
         {
             lblYourLogin.Text = DataBank.Text;
-            lbLists.DataSource = ProjectList.Items.Values.ToList();
+            lbLists.DataSource = ProjectList.Items.Values.Where(lb => lb.Performer.Login == DataBank.Text).ToList();
+
 
         }
         private void lbLists_SelectedIndexChanged(object sender, EventArgs e)
@@ -35,7 +36,10 @@ namespace ProjectKursova
 
         private void btnAddProjectcs_Click(object sender, EventArgs e)
         {
+            if (ProjectList.Items.Count < 3)               
             new ProjectList() { Name = tbProjects.Text };
+            else
+                MessageBox.Show("You have already had 3 projects");
             RefreshList();
         }
 
@@ -47,10 +51,13 @@ namespace ProjectKursova
         }
         private void RefreshList()
         {
+            var a = lbLists.SelectedIndex;
             lbLists.DataSource = null;
             lbLists.DataSource = ProjectList.Items.Values.ToList();
+            lbLists.SelectedIndex = a;
         }
-        
+       
+
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
@@ -76,14 +83,18 @@ namespace ProjectKursova
 
         private void btnAddTask_Click(object sender, EventArgs e)
         {
-            
-            new ListTask() { Name = tbTasks.Text, ProjectList = (ProjectList)lbLists.SelectedItem };
+            if (ListTask.Items.Values.Where(lb => lb.ProjectList == (ProjectList)lbLists.SelectedItem).ToList().Count < 6)
+                new ListTask() { Name = tbTasks.Text, ProjectList = (ProjectList)lbLists.SelectedItem };
+            else
+                MessageBox.Show("You have already had 6 tasks");
             RefreshTask();
         }
         private void RefreshTask()
         {
+            var a = lbTasks.SelectedIndex;
             lbTasks.DataSource = null;
             lbTasks.DataSource = ListTask.Items.Values.Where(lb => lb.ProjectList == lbLists.SelectedItem).ToList();
+            lbTasks.SelectedIndex = a;
         }
         private void lbTasks_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -106,7 +117,16 @@ namespace ProjectKursova
 
         private void btnStartTask_Click(object sender, EventArgs e)
         {
-            ((ListTask)lbTasks.SelectedItem).TaskStatus = "...";
+            if (((ListTask)lbTasks.SelectedItem).TaskStatus == "-")
+            {
+                ((ProjectList)lbLists.SelectedItem).TaskStatus = "...";
+                ((ListTask)lbTasks.SelectedItem).TaskStatus = "...";
+            }
+            else if (((ListTask)lbTasks.SelectedItem).TaskStatus == "+")
+                MessageBox.Show("The task is already done");
+            else
+                MessageBox.Show("The task is already started");
+            RefreshList();
             RefreshTask();
         }
 
@@ -114,23 +134,27 @@ namespace ProjectKursova
         {
             var competed = true;
             if (((ListTask)lbTasks.SelectedItem).TaskStatus == "...")
+            {
                 ((ListTask)lbTasks.SelectedItem).TaskStatus = "+";
+                RefreshTask();
+            }
+            else if (((ListTask)lbTasks.SelectedItem).TaskStatus == "+")
+                MessageBox.Show("The task is already done");
             else
                 MessageBox.Show("Start the task first");
-
-            foreach (var task in ListTask.Items.Values)
+            foreach (var task in ListTask.Items.Values.Where(it => it.ProjectList == (ProjectList)lbLists.SelectedItem))
             {
                 if (task.TaskStatus != "+")
                 {
                     competed = false;
                 }
-                
+
             }
             if (competed)
-                //Debug.WriteLine(lbLists);
-                ProjectList.Items.Values.Where(it => it == lbLists.SelectedItem).First().TaskStatus = "+";
-
-            RefreshTask();
+                ((ProjectList)lbLists.SelectedItem).TaskStatus = "+";
+            RefreshList();
+            
+            
         }
     }
 }
