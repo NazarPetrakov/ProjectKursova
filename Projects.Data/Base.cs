@@ -16,6 +16,7 @@ namespace Projects.Data
             Id = Guid.NewGuid();
             Items.Add(Id, (T)this);
         }
+        
     }
     public static class DataBank
     {

@@ -25,14 +25,19 @@ namespace ProjectKursova
 
         private void ToUserForm_Click(object sender, EventArgs e)
         {
-            if (Performer.Items.Values.Where(pf => pf.Login == ((Performer)lbUser.SelectedItem).Login).ToList().Count() == 0)
+            if (lbUser.SelectedItem != null)
             {
-                Performer user = new Performer() { Login = ((Performer)lbUser.SelectedItem).Login };
-                DataBank.Performer = user;
+                if (Performer.Items.Values.Where(pf => pf.Login == ((Performer)lbUser.SelectedItem).Login).ToList().Count() == 0)
+                {
+                    Performer user = new Performer() { Login = ((Performer)lbUser.SelectedItem).Login };
+                    DataBank.Performer = user;
+                }
+                else
+                    DataBank.Performer = Performer.Items.Values.Single(pf => pf.Login == ((Performer)lbUser.SelectedItem).Login);
+                new UserForm().ShowDialog();
             }
             else
-                DataBank.Performer = Performer.Items.Values.Single(pf => pf.Login == ((Performer)lbUser.SelectedItem).Login);
-            new UserForm().ShowDialog();
+                MessageBox.Show("There is no one to enter");
         }
 
         private void lbUser_SelectedIndexChanged(object sender, EventArgs e)
@@ -66,29 +71,30 @@ namespace ProjectKursova
             RefreshUser();
         }
         private void RefreshUser()
-        {
-
-            //lbUser.DataSource = null;
+        {       
             lbUser.DataSource = Performer.Items.Values.ToList();
-
         }
 
         private void btnEditUser_Click(object sender, EventArgs e)
         {
-            if (tbNewUserName.Text == "")
-                MessageBox.Show("Enter a name first");
-            if (tbNewUserSurname.Text == "")
-                MessageBox.Show("Enter a surname first");
-            if (tbNewUserLogin.Text == "")
-                MessageBox.Show("Enter a Login first");
+            
             if (lbUser.SelectedItem != null && tbNewUserName.Text != "" && tbNewUserLogin.Text != "" && tbNewUserSurname.Text != "")
             {
+                if (tbNewUserName.Text == "")
+                    MessageBox.Show("Enter a name first");
+                if (tbNewUserSurname.Text == "")
+                    MessageBox.Show("Enter a surname first");
+                if (tbNewUserLogin.Text == "")
+                    MessageBox.Show("Enter a Login first");
                 ((Performer)lbUser.SelectedItem).Name = tbNewUserName.Text;
                 ((Performer)lbUser.SelectedItem).Login = tbNewUserLogin.Text;
                 ((Performer)lbUser.SelectedItem).Surname = tbNewUserSurname.Text;
                 ((Performer)lbUser.SelectedItem).Birthday = dtpBirthday.Value;
 
             }
+            else
+                MessageBox.Show("None to change");
+
 
             RefreshUser();
         }

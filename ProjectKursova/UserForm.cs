@@ -45,7 +45,10 @@ namespace ProjectKursova
                 else
                     MessageBox.Show("You have already had 3 projects");
             }
-            
+            else
+                MessageBox.Show("Enter name of project first");
+
+
             RefreshList();
         }
 
@@ -53,6 +56,8 @@ namespace ProjectKursova
         {
             if (lbLists.SelectedItem != null)
                 ((ProjectList)lbLists.SelectedItem).Name = tbProjects.Text;
+            else
+                MessageBox.Show("Nothing to change");
             RefreshList();
         }
         private void RefreshList()
@@ -63,8 +68,6 @@ namespace ProjectKursova
             
         }
        
-
-
         private void btnRemove_Click(object sender, EventArgs e)
         {
 
@@ -85,6 +88,8 @@ namespace ProjectKursova
             }
             if (lbLists.SelectedItem != null)
                 ProjectList.Items.Remove(((ProjectList)lbLists.SelectedItem).Id);
+            else
+                MessageBox.Show("Nothing to remove");
             RefreshList();
 
         }
@@ -98,6 +103,8 @@ namespace ProjectKursova
                 else
                     MessageBox.Show("You have already had 6 tasks");
             }
+            else
+                MessageBox.Show("Enter name of task first");
             RefreshTask();
         }
         private void RefreshTask()
@@ -117,6 +124,8 @@ namespace ProjectKursova
         {
             if (lbTasks.SelectedItem != null)
                 ((ListTask)lbTasks.SelectedItem).Name = tbTasks.Text;
+            else
+                MessageBox.Show("Nothing to change");
             RefreshTask();
         }
 
@@ -124,6 +133,8 @@ namespace ProjectKursova
         {
             if (lbTasks.SelectedItem != null)
                 ListTask.Items.Remove(((ListTask)lbTasks.SelectedItem).Id);
+            else
+                MessageBox.Show("Nothing to remove");
             RefreshTask();
         }
 
@@ -135,7 +146,7 @@ namespace ProjectKursova
                 {
                     if (((ListTask)lbTasks.SelectedItem).TaskStatus == "-")
                     {
-                        ((ProjectList)lbLists.SelectedItem).TaskStatus = "...";
+                        ((ProjectList)lbLists.SelectedItem).ProjectStatus = "...";
                         ((ListTask)lbTasks.SelectedItem).TaskStatus = "...";
                     }
                     else if (((ListTask)lbTasks.SelectedItem).TaskStatus == "+")
@@ -144,6 +155,9 @@ namespace ProjectKursova
                         MessageBox.Show("The task is already started");
                 }
             }
+            else
+                MessageBox.Show("No task to start");
+
             RefreshList();
             RefreshTask();
         }
@@ -174,9 +188,11 @@ namespace ProjectKursova
 
                     }
                     if (competed)
-                        ((ProjectList)lbLists.SelectedItem).TaskStatus = "+";
+                        ((ProjectList)lbLists.SelectedItem).ProjectStatus = "+";
                 }
             }
+            else
+                MessageBox.Show("No task to comlete");
             RefreshList();
             
             

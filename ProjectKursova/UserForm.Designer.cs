@@ -47,6 +47,7 @@ namespace ProjectKursova
             this.btnAddTask = new System.Windows.Forms.Button();
             this.btnEditTask = new System.Windows.Forms.Button();
             this.btnRemoveTask = new System.Windows.Forms.Button();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // lbLists
@@ -57,9 +58,9 @@ namespace ProjectKursova
             this.lbLists.ForeColor = System.Drawing.SystemColors.Highlight;
             this.lbLists.FormattingEnabled = true;
             this.lbLists.ItemHeight = 20;
-            this.lbLists.Location = new System.Drawing.Point(56, 131);
+            this.lbLists.Location = new System.Drawing.Point(41, 131);
             this.lbLists.Name = "lbLists";
-            this.lbLists.Size = new System.Drawing.Size(120, 202);
+            this.lbLists.Size = new System.Drawing.Size(171, 202);
             this.lbLists.TabIndex = 0;
             this.lbLists.SelectedIndexChanged += new System.EventHandler(this.lbLists_SelectedIndexChanged);
             // 
@@ -83,9 +84,9 @@ namespace ProjectKursova
             this.lbTasks.ForeColor = System.Drawing.SystemColors.Highlight;
             this.lbTasks.FormattingEnabled = true;
             this.lbTasks.ItemHeight = 18;
-            this.lbTasks.Location = new System.Drawing.Point(259, 131);
+            this.lbTasks.Location = new System.Drawing.Point(236, 133);
             this.lbTasks.Name = "lbTasks";
-            this.lbTasks.Size = new System.Drawing.Size(120, 200);
+            this.lbTasks.Size = new System.Drawing.Size(171, 200);
             this.lbTasks.TabIndex = 2;
             this.lbTasks.SelectedIndexChanged += new System.EventHandler(this.lbTasks_SelectedIndexChanged);
             // 
@@ -147,10 +148,11 @@ namespace ProjectKursova
             this.tbProjects.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbProjects.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tbProjects.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.tbProjects.Location = new System.Drawing.Point(56, 348);
+            this.tbProjects.Location = new System.Drawing.Point(41, 348);
             this.tbProjects.Name = "tbProjects";
-            this.tbProjects.Size = new System.Drawing.Size(121, 23);
+            this.tbProjects.Size = new System.Drawing.Size(171, 23);
             this.tbProjects.TabIndex = 7;
+            this.tbProjects.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // tbTasks
             // 
@@ -158,10 +160,11 @@ namespace ProjectKursova
             this.tbTasks.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbTasks.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tbTasks.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.tbTasks.Location = new System.Drawing.Point(258, 348);
+            this.tbTasks.Location = new System.Drawing.Point(236, 348);
             this.tbTasks.Name = "tbTasks";
-            this.tbTasks.Size = new System.Drawing.Size(120, 23);
+            this.tbTasks.Size = new System.Drawing.Size(171, 23);
             this.tbTasks.TabIndex = 11;
+            this.tbTasks.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // lblYourLogin
             // 
@@ -180,7 +183,7 @@ namespace ProjectKursova
             this.btnStartTask.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStartTask.Font = new System.Drawing.Font("Bahnschrift SemiCondensed", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnStartTask.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.btnStartTask.Location = new System.Drawing.Point(400, 272);
+            this.btnStartTask.Location = new System.Drawing.Point(427, 277);
             this.btnStartTask.Name = "btnStartTask";
             this.btnStartTask.Size = new System.Drawing.Size(124, 42);
             this.btnStartTask.TabIndex = 13;
@@ -193,7 +196,7 @@ namespace ProjectKursova
             this.btnCompiteTask.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCompiteTask.Font = new System.Drawing.Font("Bahnschrift", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnCompiteTask.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.btnCompiteTask.Location = new System.Drawing.Point(400, 225);
+            this.btnCompiteTask.Location = new System.Drawing.Point(427, 230);
             this.btnCompiteTask.Name = "btnCompiteTask";
             this.btnCompiteTask.Size = new System.Drawing.Size(124, 41);
             this.btnCompiteTask.TabIndex = 14;
@@ -215,17 +218,17 @@ namespace ProjectKursova
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.Highlight;
-            this.panel2.Location = new System.Drawing.Point(56, 379);
+            this.panel2.Location = new System.Drawing.Point(40, 379);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(121, 2);
+            this.panel2.Size = new System.Drawing.Size(171, 2);
             this.panel2.TabIndex = 36;
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.Highlight;
-            this.panel1.Location = new System.Drawing.Point(258, 379);
+            this.panel1.Location = new System.Drawing.Point(238, 379);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(121, 2);
+            this.panel1.Size = new System.Drawing.Size(167, 2);
             this.panel1.TabIndex = 37;
             // 
             // btnAddTask
@@ -269,12 +272,21 @@ namespace ProjectKursova
             this.btnRemoveTask.UseVisualStyleBackColor = false;
             this.btnRemoveTask.Click += new System.EventHandler(this.btnRemoveTask_Click);
             // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.SystemColors.Highlight;
+            this.panel3.Location = new System.Drawing.Point(12, 71);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(121, 2);
+            this.panel3.TabIndex = 38;
+            // 
             // UserForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(551, 480);
+            this.ClientSize = new System.Drawing.Size(582, 480);
+            this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.label1);
@@ -321,5 +333,6 @@ namespace ProjectKursova
         private System.Windows.Forms.Button btnAddTask;
         private System.Windows.Forms.Button btnEditTask;
         private System.Windows.Forms.Button btnRemoveTask;
+        private System.Windows.Forms.Panel panel3;
     }
 }

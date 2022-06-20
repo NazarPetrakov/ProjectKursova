@@ -10,25 +10,20 @@ namespace Projects.Data
     {
         public string Name { get; set; }
 
-        public string TaskStatus = "-";
+        public string ProjectStatus = "-";
 
         private Guid _performerId;
 
+        
         public Performer Performer
         {
             get { return Performer.Items[_performerId]; }
             set { _performerId = value.Id; }
         }
-        public List<ListTask> ListTasks
-        {
-            get
-            { 
-                return ListTask.Items.Values.Where(lt => lt.ProjectList == this).ToList();  
-            }
-        }
+        
         public override string ToString()
         {
-            return Name + " (" + TaskStatus + ")";
+            return Name + " (" + ProjectStatus + ")";
         }
     }
 }

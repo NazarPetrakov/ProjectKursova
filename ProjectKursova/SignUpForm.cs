@@ -53,5 +53,7 @@ namespace ProjectKursova
         {
             this.Close();
         }
+
+       
     }
 }
